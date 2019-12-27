@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-using R5T.Richmond;
+using CoventryApplicationStartupBase = R5T.Coventry.ApplicationStartupBase;
 
 
 namespace R5T.Dover
 {
-    public class WebApplicationStartupBase : ApplicationStartupBase, IWebApplicationStartup
+    public class WebApplicationStartupBase : CoventryApplicationStartupBase, IWebApplicationStartup
     {
-        public WebApplicationStartupBase(ILogger<ApplicationStartupBase> logger)
+        public WebApplicationStartupBase(ILogger<WebApplicationStartupBase> logger)
             : base(logger)
         {
         }
