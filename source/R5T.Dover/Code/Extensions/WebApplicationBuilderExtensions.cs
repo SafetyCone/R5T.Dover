@@ -4,8 +4,11 @@ using Microsoft.Extensions.Configuration;
 
 using Microsoft.AspNetCore.Hosting;
 
+using R5T.Dacia;
 using R5T.Derby;
 using R5T.Richmond;
+using R5T.Tromso.ServiceProvider;
+using R5T.Tromso.Startup;
 
 
 namespace R5T.Dover
@@ -20,7 +23,7 @@ namespace R5T.Dover
             where TStartup: class, IWebApplicationStartup
         {
             // Build the standard startup.
-            var webApplicationStartup = ApplicationBuilderHelper.GetStartupInstance<TStartup>();
+            var webApplicationStartup = ServiceProvider.New().GetStartupInstance<TStartup>();
 
             // Configuration.
             var applicationConfigurationBuilder = new ConfigurationBuilder();
@@ -54,7 +57,7 @@ namespace R5T.Dover
         public static IWebHostBuilder UseStartup<TStartup>(this WebApplicationBuilder applicationBuilder)
             where TStartup : class, IWebApplicationStartup
         {
-            var webHostBuilder = applicationBuilder.UseStartup<TStartup>(ApplicationBuilderHelper.GetEmptyServiceProvider);
+            var webHostBuilder = applicationBuilder.UseStartup<TStartup>(ServiceProviderHelper.GetEmptyServiceProvider);
             return webHostBuilder;
         }
 
@@ -66,7 +69,7 @@ namespace R5T.Dover
         /// </summary>
         public static IWebHostBuilder UseStartup<TStartup, TConfigurationStartup>(this WebApplicationBuilder webApplicationBuilder, IServiceProvider configurationStartupConfigurationServicesProvider)
                 where TStartup : class, IWebApplicationStartup
-                where TConfigurationStartup : class, IApplicationConfigurationStartup
+                where TConfigurationStartup : class, IConfigurationStartup
         {
             var applicationBuilder = new ApplicationBuilder(); // Use an application builder for the configuration.
 
@@ -83,7 +86,7 @@ namespace R5T.Dover
         /// </summary>
         public static IWebHostBuilder UseStartup<TStartup, TConfigurationStartup>(this WebApplicationBuilder webApplicationBuilder, Func<IServiceProvider> configurationStartupConfigurationServicesProviderProvider)
             where TStartup : class, IWebApplicationStartup
-            where TConfigurationStartup : class, IApplicationConfigurationStartup
+            where TConfigurationStartup : class, IConfigurationStartup
         {
             var configurationStartupConfigurationServicesProvider = configurationStartupConfigurationServicesProviderProvider();
 
@@ -98,9 +101,9 @@ namespace R5T.Dover
         /// </summary>
         public static IWebHostBuilder UseStartup<TStartup, TConfigurationStartup>(this WebApplicationBuilder webApplicationBuilder)
             where TStartup : class, IWebApplicationStartup
-            where TConfigurationStartup : class, IApplicationConfigurationStartup
+            where TConfigurationStartup : class, IConfigurationStartup
         {
-            var webHostBuilder = webApplicationBuilder.UseStartup<TStartup, TConfigurationStartup>(ApplicationBuilderHelper.GetEmptyServiceProvider);
+            var webHostBuilder = webApplicationBuilder.UseStartup<TStartup, TConfigurationStartup>(ServiceProviderHelper.GetEmptyServiceProvider);
             return webHostBuilder;
         }
 
