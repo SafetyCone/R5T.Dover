@@ -11,7 +11,7 @@ using CoventryApplicationStartupBase = R5T.Coventry.ApplicationStartupBase;
 
 namespace R5T.Dover
 {
-    public class WebApplicationStartupBase : CoventryApplicationStartupBase, IWebApplicationStartup
+    public abstract class WebApplicationStartupBase : CoventryApplicationStartupBase, IWebApplicationStartup
     {
         public WebApplicationStartupBase(ILogger<WebApplicationStartupBase> logger)
             : base(logger)
