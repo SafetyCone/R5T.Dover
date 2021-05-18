@@ -57,7 +57,7 @@ namespace R5T.Dover
         public static IWebHostBuilder UseStartup<TStartup>(this WebApplicationBuilder applicationBuilder)
             where TStartup : class, IWebApplicationStartup
         {
-            var webHostBuilder = applicationBuilder.UseStartup<TStartup>(ServiceProviderHelper.GetEmptyServiceProvider);
+            var webHostBuilder = applicationBuilder.UseStartup<TStartup>(ServiceProviderHelper.GetNewEmptyServiceProvider);
             return webHostBuilder;
         }
 
@@ -103,7 +103,7 @@ namespace R5T.Dover
             where TStartup : class, IWebApplicationStartup
             where TConfigurationStartup : class, IConfigurationStartup
         {
-            var webHostBuilder = webApplicationBuilder.UseStartup<TStartup, TConfigurationStartup>(ServiceProviderHelper.GetEmptyServiceProvider);
+            var webHostBuilder = webApplicationBuilder.UseStartup<TStartup, TConfigurationStartup>(ServiceProviderHelper.GetNewEmptyServiceProvider);
             return webHostBuilder;
         }
 
